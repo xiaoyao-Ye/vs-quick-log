@@ -1,0 +1,72 @@
+{
+  "name": "vs-quick-log",
+  "displayName": "Quick create log",
+  "description": "Quick create log",
+  "version": "0.0.5",
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "publisher": "Ghosteye",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiaoyao-Ye/vs-log.git"
+  },
+  "activationEvents": [
+    "onLanguage:vue",
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "log.createLog",
+        "title": "Create Log"
+      },
+      {
+        "command": "log.clearLog",
+        "title": "Clear Log"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "log.createLog",
+        "key": "ctrl+shift+l",
+        "mac": "cmd+shift+l"
+      },
+      {
+        "command": "log.clearLog",
+        "key": "ctrl+shift+delete",
+        "mac": "cmd+shift+delete"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "tsup",
+    "//vscode:prepublish": "pnpm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest:vs": "pnpm run compile && pnpm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vitest run",
+    "test:vs": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.82.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "@vscode/test-electron": "^2.3.4",
+    "eslint": "^8.47.0",
+    "glob": "^10.3.3",
+    "mocha": "^10.2.0",
+    "tsup": "^7.2.0",
+    "typescript": "^5.1.6"
+  }
+}
