@@ -2,3 +2,13 @@ out
 node_modules
 .vscode-test/
 *.vsix
+.cache
+.DS_Store
+.idea
+*.log
+*.tgz
+coverage
+dist
+lib-cov
+logs
+temp

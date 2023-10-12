@@ -4,21 +4,26 @@
 - [x] 缩进
 - [x] 完成 clearlog
 - [x] 打包发布上线
+- [ ] 选中变量打印需要匹配类似(this.xx.xx)这种情况, 也就是说只要选中的内容中间没有空格并且有.的也可以打印(trim 后去掉.再匹配正则即可?更好的应该是排除/r/n, {,},=>, 等情况? 因为选中打印 a && b 或者 fn(1)也是合理的)
+- [ ] vue2 中 methods 声明的函数参数打印不了, 是因为 ast 识别类型不是参数?
+- [x] 打印 if 里面的所有条件
+- [ ] vue3 是 ref 的打印 xx.value?
 - [ ] clearLog 发布版本不生效问题
 - [x] 打印选中(只选中一个单词的时候)变量或者参数(endLine 还是得通过 ast 找, 挺麻烦的, 控制选中的只有是变量或者参数才打印的话应该会简单点, 就直接拿这个名称去变量和参数里面找)(目前只打印到下一行)
 - [ ] 打印选中也需要有缩进
 - [ ] 函数闭合状态下应该在函数 body 中打印
-- [ ] 有参数时不打印变量需要调整, 是单行中有参数时不打印变量而不是所有选中文本中有参数就不打印变量
+- [x] 有参数时不打印变量需要调整, 是单行中有参数时不打印变量而不是所有选中文本中有参数就不打印变量
 - [x] 同时选中多行的情况下打印位置错误的问题
-- [ ] 同时打印多个变量或者参数时光标位置错误
+- [x] 同时打印多个变量或者参数时光标位置错误
 - [x] const fn = (x,y) => {} 的情况下不打印 fn 的 bug
 - [x] 同时有参数和变量的情况下只打印参数
 - [ ] const { 的情况下会将 { 当做变量的 bug
 - [x] 打印完毕光标位置
 - [x] 当打印行就是最后一行时, 会导致打印到当前行
-- [ ] 光标设置优化不使用999
+- [ ] 光标设置优化不使用 999
 - [x] 测试在 vue 文件是否存在异常
 - [ ] class 和 import 变量处理
+- [ ] 多行打印时, 如果有同名变量会导致打印到第一个地方打印 n 行(一般不会同时打印多行, 所以没必要的话不需要处理)
 
 ## feature
 
@@ -37,6 +42,69 @@
 - 处理变量或者参数的值
   - xx
 - 打印所有 log
+
+> 现在有个问题就是类似 class 这种需要完整的 class 才能正确解析, 那我以当前行去+100 获取完整文本
+> 然后将完整的文本解析成 ast, 在从完整本文的第 100 行(也就是当前行)的节点开始识别可打印内容
+> (其他打印内容也可以这样, 而不用从原始本文找打印内容再从完整 ast 找结束行, 现在可以直接拿到结束行)
+> vue 文件可以尝试过滤出只拿 script 解析?
+> 缺点可能是内容会比较多
+
+通过` vscode.window.activeTextEditor.document.languageId`获取文件类型, 如果是 vue 需要获取 script 去解析, js 或者 ts 直接解析 (jsx 和 tsx 需要测试看情况, 目前是否支持 jsx 和 tsx 都待测试)
+
+获取 vue 的 script:
+
+```typescript
+function getScriptContentAndStartLine(fileContent) {
+  // 非贪婪模式
+  // const scriptRegex = /<script\b[^>]*>([\s\S]*?)<\/script>/;
+  // 贪婪模式
+  const scriptRegex = /<script\b[^>]*>([\s\S]*)<\/script>/;
+  const match = fileContent.match(scriptRegex);
+
+  if (match) {
+    const scriptContent = match[1];
+    const scriptStartLine = fileContent
+      .substr(0, match.index)
+      .split("\n").length;
+    return { scriptContent, scriptStartLine };
+  }
+
+  return null;
+}
+
+const result = getScriptContentAndStartLine(code);
+console.log(result);
+```
+
+转换 TypeScript 代码为 JavaScript 代码:
+
+```js
+const result = ts.transpileModule(code, {
+  compilerOptions: {
+    target: ts.ScriptTarget.ESNext,
+    allowJs: true,
+  },
+});
+
+// 输出 JavaScript 代码
+console.log(result.outputText);
+```
+
+解析 ast
+
+```js
+let acorn = require("acorn");
+const parser = require("@typescript-eslint/parser");
+
+// 解析成 ast
+const ast = parser.parse(code, {
+  // sourceType: 'module',
+});
+
+console.log(ast);
+console.log(acorn.parse(code, { ecmaVersion: "latest" }));
+console.log(acorn.parse(code, { ecmaVersion: "latest", sourceType: "module" }));
+```
 
 ## ast
 
@@ -88,3 +156,7 @@ node.name.text === "foo";
 // 当前节点是函数, 并且函数体为空
 node.body === undefined || node.body.statements.length === 0;
 ```
+
+## refactor
+
+- [ ] ...

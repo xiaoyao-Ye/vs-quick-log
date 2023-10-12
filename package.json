@@ -1,18 +1,32 @@
 {
+  "publisher": "_Ghosteye",
   "name": "vs-quick-log",
   "displayName": "Quick create log",
-  "description": "Quick create log",
-  "version": "0.0.5",
-  "engines": {
-    "vscode": "^1.82.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "publisher": "Ghosteye",
+  "version": "0.1.2",
+  "private": true,
+  "description": "Identify and print variables quickly, accurately and efficiently.",
+  "author": "_Ghosteye <Ghosteye@yeah.net>",
+  "license": "MIT",
+  "homepage": "https://github.com/xiaoyao-Ye/vs-quick-log#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/xiaoyao-Ye/vs-log.git"
+    "url": "https://github.com/xiaoyao-Ye/vs-quick-log.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xiaoyao-Ye/vs-quick-log/issues"
+  },
+  "categories": [
+    "Other",
+    "Snippets",
+    "Debuggers"
+  ],
+  "main": "./dist/index.js",
+  "icon": "public/icon.png",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "vscode": "^1.78.1"
   },
   "activationEvents": [
     "onLanguage:vue",
@@ -21,7 +35,6 @@
     "onLanguage:javascriptreact",
     "onLanguage:typescriptreact"
   ],
-  "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
@@ -47,26 +60,23 @@
     ]
   },
   "scripts": {
-    "build": "tsup",
-    "//vscode:prepublish": "pnpm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest:vs": "pnpm run compile && pnpm run lint",
-    "lint": "eslint src --ext ts",
+    "build": "tsup src/index.ts --external vscode",
+    "dev": "pnpm run build --watch",
+    "vscode:prepublish": "pnpm run test && pnpm run build",
+    "publish": "bumpp && vsce publish --no-dependencies",
+    "pack": "pnpm run build && vsce package --no-dependencies",
     "test": "vitest run",
-    "test:vs": "node ./out/test/runTest.js"
+    "typecheck": "tsc --noEmit",
+    "release": "bumpp && pnpm publish"
   },
   "devDependencies": {
-    "@types/mocha": "^10.0.1",
-    "@types/node": "16.x",
-    "@types/vscode": "^1.82.0",
-    "@typescript-eslint/eslint-plugin": "^6.4.1",
-    "@typescript-eslint/parser": "^6.4.1",
-    "@vscode/test-electron": "^2.3.4",
-    "eslint": "^8.47.0",
-    "glob": "^10.3.3",
-    "mocha": "^10.2.0",
-    "tsup": "^7.2.0",
-    "typescript": "^5.1.6"
+    "@types/node": "^18.16.16",
+    "@types/vscode": "^1.78.1",
+    "@vscode/vsce": "^2.19.0",
+    "bumpp": "^9.1.0",
+    "tsup": "^6.7.0",
+    "typescript": "^5.1.3",
+    "vite": "^4.2.3",
+    "vitest": "^0.31.4"
   }
 }

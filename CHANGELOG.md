@@ -1,5 +1,28 @@
 # Change Log
 
+## 0.1.2
+
+- perf: 优化打印 `if 条件语句` 时字符串冲突的问题
+- perf: 优化打印 `if 条件语句` 会打印基础数据类型的问题
+
+## 0.1.1
+
+- feat: 支持选中打印 `xx.xx` | `this.xx.xx` 的变量
+- feat: 打印新增 `(  )===============>` 标识
+- fix: 打印 `if 语句中的条件` 时应该打印数值的问题
+
+## 0.1.0
+
+- feat: 可打印 if 语句中的所有条件
+- fix: 多行打印时光标位置错误
+- perf: 单行打印时有参数的情况下仅打印参数, 多行打印时将打印所有能打印的
+
+## 0.0.6
+
+- feat: icon
+- chore: categories
+- chore: Build vsce package
+
 ## 0.0.5
 
 - fix: 尝试修复生产环境 clear console 无效的问题
