@@ -59,6 +59,7 @@ export class QuickLog {
   }
 
   insertLog(contents: Content[]) {
+    if (!contents.length) return;
     // sort
     contents.sort((a, b) => b.endLine - a.endLine);
     // create log text

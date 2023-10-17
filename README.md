@@ -1,6 +1,6 @@
 # vs-quick-log
 
-![Guide](./public/Guide-dark.png)
+![Guide](https://github.com/xiaoyao-Ye/blog/blob/main/docs/public/initApi/Guide-dark.png?raw=true)
 
 ## Create console.log
 

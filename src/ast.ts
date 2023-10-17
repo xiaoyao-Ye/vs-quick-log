@@ -29,21 +29,23 @@ function findNodesInRange(
   startLine: number,
   endLine: number
 ) {
+  /** 结束行在下一行之前 */
+  endLine += 1;
   const nodes: ts.Node[] = [];
   const lineStarts = ast.getLineStarts();
 
   function visit(node: ts.Node) {
     const isNodeInRange =
       node.getStart(ast) >= lineStarts[startLine] &&
-      node.getEnd() <= lineStarts[endLine];
-    if (!isNodeInRange) return;
-
-    const isIfStatement = ts.isIfStatement(node);
-    const isVariable = ts.isVariableDeclaration(node);
-    const isParameter = ts.isParameter(node);
-    if (!isIfStatement || !isVariable || !isParameter) return;
-
-    nodes.push(node);
+      node.getEnd() <= (lineStarts[endLine] || Infinity);
+    if (isNodeInRange) {
+      const isIfStatement = ts.isIfStatement(node);
+      const isVariable = ts.isVariableDeclaration(node);
+      const isParameter = ts.isParameter(node);
+      if (isIfStatement || isVariable || isParameter) {
+        nodes.push(node);
+      }
+    }
 
     ts.forEachChild(node, visit);
   }

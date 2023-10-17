@@ -159,4 +159,5 @@ node.body === undefined || node.body.statements.length === 0;
 
 ## refactor
 
+- [ ] bug: vs-log 中的 extension.ts 测试, create 单行时变量打印不出, 全选可以. 单行 if 没问题, if+下一行选中时打印异常
 - [ ] ...
