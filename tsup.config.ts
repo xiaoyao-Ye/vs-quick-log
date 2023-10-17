@@ -1,13 +1,11 @@
-import { defineConfig } from 'tsup'
+import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: [
-    'src/index.ts',
-  ],
-  format: ['cjs'],
+  entry: ["src/index.ts"],
+  format: ["cjs"],
   shims: false,
+  sourcemap: true,
   dts: false,
-  external: [
-    'vscode',
-  ],
-})
+  clean: true,
+  external: ["vscode"],
+});

@@ -64,7 +64,7 @@
     "dev": "pnpm run build --watch",
     "vscode:prepublish": "pnpm run test && pnpm run build",
     "publish": "bumpp && vsce publish --no-dependencies",
-    "pack": "pnpm run build && vsce package --no-dependencies",
+    "pack": "vsce package --no-dependencies",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "release": "bumpp && pnpm publish"

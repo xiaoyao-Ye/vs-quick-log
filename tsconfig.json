@@ -3,6 +3,7 @@
     "target": "es2017",
     "module": "esnext",
     "lib": ["esnext"],
+    "sourceMap": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
