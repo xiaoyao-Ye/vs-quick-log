@@ -36,7 +36,11 @@ export class QuickLog {
       this.isMultiple,
       this.offset
     );
-    if (!contents.length) {
+    if (!contents.length && !this.isMultiple) {
+      // TODO: 要排除小于0的情况
+      const text = this.getActiveText(this.startLine - 1, this.endLine - 1);
+      const ast = parseTsToAST(text);
+      const nodes = findNodesInRange(ast, this.startLine - 1, this.endLine - 1);
       contents = collectLogs(
         ast,
         nodes,
@@ -91,7 +95,7 @@ export class QuickLog {
       })
       .then(
         () => {
-          maxEndLine += contents.length;
+          maxEndLine += contents.length - 1;
           this.editor.selection = new vs.Selection(
             new vs.Position(maxEndLine, 999),
             new vs.Position(maxEndLine, 999)
@@ -131,7 +135,9 @@ function getCurrentLineIndentation(
   editor: vs.TextEditor,
   log: Content
 ): string {
-  const currentLine = editor.document.lineAt(log.endLine);
+  const spaceLine =
+    log.variableType === "condition" ? log.endLine : log.endLine - 1;
+  const currentLine = editor.document.lineAt(spaceLine);
 
   // Get the number of spaces in the indentation
   let spacesCount = currentLine.firstNonWhitespaceCharacterIndex;
