@@ -159,5 +159,10 @@ node.body === undefined || node.body.statements.length === 0;
 
 ## refactor
 
-- [ ] bug: vs-log 中的 extension.ts 测试, create 单行时变量打印不出, 全选可以. 单行 if 没问题, if+下一行选中时打印异常
+- [x] bug: vs-log 中的 extension.ts 测试, create 单行时变量打印不出, 全选可以. 单行 if 没问题, if+下一行选中时打印异常
+- [x] bug: 多行时打印 if 异常
+- [ ] bug: contents 为空时打印上一行失效
+- [ ] bug: 选中多行时, 如果选中的语句不完整, 会导致无法识别
+- [x] 打印时, 有时会 Illegal value for `line`
+- [ ] delete: 调试的时候, 当前 vscode 打开的项目文件是可以删除成功的, 如果把项目外的文件放进来就只能 create 不能 delete, 怀疑是 vscode 的权限问题
 - [ ] ...

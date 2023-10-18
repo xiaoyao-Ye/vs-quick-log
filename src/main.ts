@@ -29,13 +29,22 @@ export class QuickLog {
     const text = this.getActiveText(this.startLine, this.endLine);
     const ast = parseTsToAST(text);
     const nodes = findNodesInRange(ast, this.startLine, this.endLine);
-    const contents = collectLogs(
+    let contents = collectLogs(
       ast,
       nodes,
       this.startLine,
       this.isMultiple,
       this.offset
     );
+    if (!contents.length) {
+      contents = collectLogs(
+        ast,
+        nodes,
+        this.startLine - 1,
+        this.isMultiple,
+        this.offset
+      );
+    }
     this.insertLog(contents);
   }
 
@@ -67,21 +76,32 @@ export class QuickLog {
     this.editor
       .edit((editBuilder) => {
         contents.forEach((log) => {
+          const isFirstLine = log.endLine <= 0;
+          log.endLine = isFirstLine ? 0 : log.endLine + 1;
+
           const space = getCurrentLineIndentation(this.editor, log);
           const isLastLine = log.endLine === this.editor.document.lineCount - 1;
           const text = handleText(log.text, space, isLastLine);
-          const position = new vs.Position(log.endLine + 1, 0);
+
+          const position = new vs.Position(log.endLine, 0);
           editBuilder.insert(position, text);
+
           if (log.endLine > maxEndLine) maxEndLine = log.endLine;
         });
       })
-      .then(() => {
-        maxEndLine += contents.length;
-        this.editor.selection = new vs.Selection(
-          new vs.Position(maxEndLine, 999),
-          new vs.Position(maxEndLine, 999)
-        );
-      });
+      .then(
+        () => {
+          maxEndLine += contents.length;
+          this.editor.selection = new vs.Selection(
+            new vs.Position(maxEndLine, 999),
+            new vs.Position(maxEndLine, 999)
+          );
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+
     // get current line indentation
     // insert log
     // cursor position

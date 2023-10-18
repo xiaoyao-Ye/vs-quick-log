@@ -29,21 +29,34 @@ function findNodesInRange(
   startLine: number,
   endLine: number
 ) {
-  /** 结束行在下一行之前 */
-  endLine += 1;
   const nodes: ts.Node[] = [];
-  const lineStarts = ast.getLineStarts();
+  const isMultiline = startLine !== endLine;
 
   function visit(node: ts.Node) {
-    const isNodeInRange =
-      node.getStart(ast) >= lineStarts[startLine] &&
-      node.getEnd() <= (lineStarts[endLine] || Infinity);
-    if (isNodeInRange) {
-      const isIfStatement = ts.isIfStatement(node);
-      const isVariable = ts.isVariableDeclaration(node);
-      const isParameter = ts.isParameter(node);
-      if (isIfStatement || isVariable || isParameter) {
-        nodes.push(node);
+    const nodeStartLine = ast.getLineAndCharacterOfPosition(
+      node.getStart(ast)
+    ).line;
+    const nodeEndLine = ast.getLineAndCharacterOfPosition(node.getEnd()).line;
+
+    if (!isMultiline) {
+      if (nodeStartLine === startLine) {
+        const isIfStatement = ts.isIfStatement(node);
+        const isVariable = ts.isVariableDeclaration(node);
+        const isParameter = ts.isParameter(node);
+        if (isIfStatement || isVariable || isParameter) {
+          nodes.push(node);
+        }
+      }
+    } else {
+      const isNodeInRange =
+        nodeStartLine >= startLine && nodeEndLine <= endLine;
+      if (isNodeInRange) {
+        const isIfStatement = ts.isIfStatement(node);
+        const isVariable = ts.isVariableDeclaration(node);
+        const isParameter = ts.isParameter(node);
+        if (isIfStatement || isVariable || isParameter) {
+          nodes.push(node);
+        }
       }
     }
 
@@ -68,12 +81,11 @@ function collectLogs(
   function findNode(node: ts.Node) {
     if (ts.isIfStatement(node)) {
       const text = node.expression.getText(ast);
+      /** if 打印在上一行 */
       let printLine = startLine - 1;
       if (isMultiple) {
-        printLine += ast.getLineAndCharacterOfPosition(node.end).line;
+        printLine += ast.getLineAndCharacterOfPosition(node.getStart(ast)).line;
       }
-      const log = new Content(text, printLine, "condition");
-      contents.push(log);
 
       if (ts.isBinaryExpression(node.expression)) {
         const names = extractConditions(ast, node.expression);
@@ -81,6 +93,9 @@ function collectLogs(
           contents.push(new Content(txt, printLine, "condition"))
         );
       }
+
+      const log = new Content(text, printLine, "condition");
+      contents.push(log);
     }
 
     if (ts.isVariableDeclaration(node)) {
@@ -117,7 +132,7 @@ function collectLogs(
       }
     }
 
-    ts.forEachChild(node, findNode);
+    // ts.forEachChild(node, findNode);
   }
 
   nodes.forEach(findNode);
