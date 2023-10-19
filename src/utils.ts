@@ -28,11 +28,13 @@ function handleText(text: string, space: string, isLastLine: boolean) {
 
 function findConsoleLogLineIndex(text: string) {
   // 如果使用全局匹配会导致每次匹配都会从上一次的位置继续, 导致 regex.test(line) 匹配同一个字符串第13579..是true246810....是false
-  const regex = /^(?!\/\/|\/\*)\s*console.log(.*)/;
-  const result = text.split("\r\n").map((line, rowIndex) => {
-    if (regex.test(line)) return rowIndex;
+  // const regex = /^(?!\/\/|\/\*)\s*console.log(.*)/;
+  const regex = /^(?!\/\/|\/\*)\s*console.log(\(.*\)\=+>.*)/;
+  const rowIndexList: number[] = [];
+  // text.split("\r\n").forEach((line, rowIndex) => {
+  text.split("\n").forEach((line, rowIndex) => {
+    if (regex.test(line)) rowIndexList.push(rowIndex);
   });
-  const rowIndexList = result.filter((f) => f !== undefined) as number[];
   return rowIndexList;
 }
 

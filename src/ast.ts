@@ -27,10 +27,18 @@ function parseTsToAST(text: string) {
 function findNodesInRange(
   ast: ts.SourceFile,
   startLine: number,
-  endLine: number
+  endLine: number,
+  offset: number,
+  language: string
 ) {
   const nodes: ts.Node[] = [];
   const isMultiline = startLine !== endLine;
+  /** offset 是 100 对于ast来说当前start最大是100, 如果start大于100，endline也需要重新计算, 小于等于则不需要 */
+  const largerThanOffset = startLine > offset;
+  if (largerThanOffset) {
+    endLine = endLine - startLine + offset;
+    startLine = offset;
+  }
 
   function visit(node: ts.Node) {
     const nodeStartLine = ast.getLineAndCharacterOfPosition(
@@ -45,6 +53,22 @@ function findNodesInRange(
         const isParameter = ts.isParameter(node);
         if (isIfStatement || isVariable || isParameter) {
           nodes.push(node);
+        }
+        // 仅vue2中需要:
+        if (language === "vue") {
+          if (ts.isCallExpression(node)) {
+            node.arguments.forEach((argument) => {
+              if (ts.isIdentifier(argument)) {
+                nodes.push(argument);
+              }
+            });
+          }
+          // 如果是解构的参数, 会是下面这种类型
+          // if (ts.isObjectLiteralExpression(node)) {
+          //   node.properties.forEach((property) => {
+          //     nodes.push(property);
+          //   });
+          // }
         }
       }
     } else {
@@ -81,11 +105,11 @@ function collectLogs(
   function findNode(node: ts.Node) {
     if (ts.isIfStatement(node)) {
       const text = node.expression.getText(ast);
-      /** if 打印在上一行 */
-      let printLine = startLine - 1;
-      if (isMultiple) {
-        printLine += ast.getLineAndCharacterOfPosition(node.getStart(ast)).line;
-      }
+      let printLine = ast.getLineAndCharacterOfPosition(
+        node.getStart(ast)
+      ).line;
+      printLine =
+        startLine >= offset ? printLine + startLine - offset : printLine;
 
       if (ts.isBinaryExpression(node.expression)) {
         const names = extractConditions(ast, node.expression);
@@ -96,6 +120,23 @@ function collectLogs(
 
       const log = new Content(text, printLine, "condition");
       contents.push(log);
+    }
+
+    if (ts.isParameter(node)) {
+      const text = node.name.getText(ast);
+      let printLine = ast.getLineAndCharacterOfPosition(node.end).line;
+      printLine =
+        startLine >= offset ? printLine + startLine - offset : printLine;
+
+      if (ts.isObjectBindingPattern(node.name)) {
+        const names = getDeconstructionName(node.name);
+        names.forEach((txt) =>
+          contents.push(new Content(txt, printLine, "parameter"))
+        );
+      } else {
+        const log = new Content(text, printLine, "parameter");
+        contents.push(log);
+      }
     }
 
     if (ts.isVariableDeclaration(node)) {
@@ -115,16 +156,15 @@ function collectLogs(
       }
     }
 
-    if (ts.isParameter(node)) {
-      const text = node.name.getText(ast);
+    if (ts.isIdentifier(node)) {
+      const text = node.text;
       let printLine = ast.getLineAndCharacterOfPosition(node.end).line;
       printLine =
         startLine >= offset ? printLine + startLine - offset : printLine;
-
-      if (ts.isObjectBindingPattern(node.name)) {
-        const names = getDeconstructionName(node.name);
+      if (ts.isObjectBindingPattern(node)) {
+        const names = getDeconstructionName(node);
         names.forEach((txt) =>
-          contents.push(new Content(txt, printLine, "parameter"))
+          contents.push(new Content(txt, printLine, "variable"))
         );
       } else {
         const log = new Content(text, printLine, "parameter");

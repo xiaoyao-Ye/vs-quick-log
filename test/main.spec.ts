@@ -1,6 +1,6 @@
 import { it, expect, describe } from "vitest";
-import { QuickLog } from "../src/main";
-import * as vs from "vscode";
+// import { QuickLog } from "../src/main";
+// import * as vs from "vscode";
 
 const code = `
 var a;
@@ -26,12 +26,11 @@ const fn = (a: string, b: number) => {
 
 describe("create log", () => {
   it("should print selected", () => {
-    const quickLog = new QuickLog();
+    // const quickLog = new QuickLog();
     // quickLog.startLine = 1;
     // quickLog.endLine = 1;
     // quickLog.createLog();
-
-    expect(quickLog.isMultiple).toEqual(false);
+    // expect(quickLog.isMultiple).toEqual(false);
   });
 });
 

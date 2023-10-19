@@ -1,8 +1,8 @@
 {
-  "publisher": "_Ghosteye",
+  "publisher": "Ghosteye",
   "name": "vs-quick-log",
   "displayName": "Quick create log",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "description": "Identify and print variables quickly, accurately and efficiently.",
   "author": "_Ghosteye <Ghosteye@yeah.net>",

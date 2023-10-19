@@ -3,6 +3,16 @@ import { Content, collectLogs, findNodesInRange, parseTsToAST } from "./ast";
 // import { insertLog } from "./output";
 import { findConsoleLogLineIndex, handleText, isLetter } from "./utils";
 
+// 后续可能在createLog中增加判断, 不是下面类型的文件直接 return, 避免后续js的运行
+// const languageList = [
+//   "typescript",
+//   "javascript",
+//   "javascriptreact",
+//   "typescriptreact",
+//   "html",
+//   "vue",
+// ];
+
 export class QuickLog {
   /** 偏移量 */
   offset: number = 100;
@@ -15,6 +25,7 @@ export class QuickLog {
   createLog() {
     const editor = vs.window.activeTextEditor;
     if (!editor) return;
+    const language = editor.document.languageId;
     this.editor = editor;
     this.startLine = editor.selection.start.line;
     this.endLine = editor.selection.end.line;
@@ -28,7 +39,13 @@ export class QuickLog {
 
     const text = this.getActiveText(this.startLine, this.endLine);
     const ast = parseTsToAST(text);
-    const nodes = findNodesInRange(ast, this.startLine, this.endLine);
+    const nodes = findNodesInRange(
+      ast,
+      this.startLine,
+      this.endLine,
+      this.offset,
+      language
+    );
     let contents = collectLogs(
       ast,
       nodes,
@@ -36,11 +53,18 @@ export class QuickLog {
       this.isMultiple,
       this.offset
     );
-    if (!contents.length && !this.isMultiple) {
-      // TODO: 要排除小于0的情况
-      const text = this.getActiveText(this.startLine - 1, this.endLine - 1);
+    const isFirstLine = this.startLine - 1 < 0;
+    if (!contents.length && !this.isMultiple && !isFirstLine) {
+      // 单行所以全部用 startLine 就好了
+      const text = this.getActiveText(this.startLine - 1, this.startLine - 1);
       const ast = parseTsToAST(text);
-      const nodes = findNodesInRange(ast, this.startLine - 1, this.endLine - 1);
+      const nodes = findNodesInRange(
+        ast,
+        this.startLine - 1,
+        this.startLine - 1,
+        this.offset,
+        language
+      );
       contents = collectLogs(
         ast,
         nodes,
@@ -80,11 +104,14 @@ export class QuickLog {
     this.editor
       .edit((editBuilder) => {
         contents.forEach((log) => {
+          /** if 打印在上一行 */
+          if (log.variableType === "condition") log.endLine -= 1;
+          /** 变量和参数打印在下一行 */
           const isFirstLine = log.endLine <= 0;
           log.endLine = isFirstLine ? 0 : log.endLine + 1;
 
           const space = getCurrentLineIndentation(this.editor, log);
-          const isLastLine = log.endLine === this.editor.document.lineCount - 1;
+          const isLastLine = log.endLine === this.editor.document.lineCount;
           const text = handleText(log.text, space, isLastLine);
 
           const position = new vs.Position(log.endLine, 0);

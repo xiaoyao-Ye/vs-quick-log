@@ -159,15 +159,27 @@ node.body === undefined || node.body.statements.length === 0;
 
 ## refactor
 
+- [ ] feature: switch 是否有需要打印的情况
+- [ ] feature: 打印是否需要去重
 - [x] bug: vs-log 中的 extension.ts 测试, create 单行时变量打印不出, 全选可以. 单行 if 没问题, if+下一行选中时打印异常
 - [x] bug: 多行时打印 if 异常
 - [x] bug: contents 为空时打印上一行失效
 - [x] bug: 打印变量时可能无缩进
 - [x] bug: 打印完毕光标位置问题
-- [ ] bug: 超过 100 行, 鼠标光标指向有问题(也可能是 ts 解析 vue2 的 ast 导致行数有问题, vue 可能解析出 script 标签里的内容单独计算比较好)(作为两个问题去测试)
-- [ ] bug: vue 中还是有位置错乱问题
+- [x] bug: 超过 100 行, 鼠标光标指向有问题(也可能是 ts 解析 vue2 的 ast 导致行数有问题, vue 可能解析出 script 标签里的内容单独计算比较好)(作为两个问题去测试)
+- [x] bug: vue 中还是有位置错乱问题
+- [x] perf: 有 ===> 的 log 才清除
+- [ ] perf: (vue2 需要获取 script 去打印)(`现在应该可以直接打印了, methods 中的参数解构参数还是打印不了, 有时会把html解析成节点, 导致html中使用的变量打印在template中!`)
+- [ ] perf: 目前为了打印 vue methods 声明的函数参数, 导致任何标识符都能打印, 需要改进
+- [ ] perf: else if 应该打印在 if 上面而不是单个 else if 上面
 - [ ] perf: 选中多行时, 如果选中的语句不完整, 会导致无法识别
-- [ ] perf: 函数闭合状态打印的时候可以展开函数就更好了
+- [ ] perf: 函数参数多行时打印位置应该在函数体内而不是参数的下一行
+- [ ] perf: clearlog 如果有夸多行的 log 应该匹配不上, 会导致失败
+- [ ] perf: for of 和 for in 循环的打印应该+缩进
+- [ ] perf: 函数闭合状态打印的时候可以展开函数就更好了(展开函数会导致行数增加, 需要处理)
 - [ ] 打印时, 有时会 Illegal value for `line`(目前仅 vue 文件中多行时存在问题)
-- [ ] delete: 调试的时候, 当前 vscode 打开的项目文件是可以删除成功的, 如果把项目外的文件放进来就只能 create 不能 delete, 怀疑是 vscode 的权限问题
+- [x] delete: 调试的时候, 当前 vscode 打开的项目文件是可以删除成功的, 如果把项目外的文件放进来就只能 create 不能 delete, 怀疑是 vscode 的权限问题
 - [ ] ...
+
+- tsx 或者 jsx 在函数内部暂时没发现问题, 在 return 的 html 中会异常(应该不影响使用)
+- 千行文件还没测试

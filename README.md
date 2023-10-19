@@ -24,7 +24,7 @@
 
 ## Clear console.log
 
-`ctrl+shift+delete` 清除当前文件所有非注释的 console.log (**打包发布后不生效, 正在尝试修复中**)
+`ctrl+shift+delete` 清除当前文件非注释的 console.log (匹配规则的正则: `/^(?!\/\/|\/\*)\s*console.log(\(.*\)\=+>.*)/`)
 
 ## FAQ
 
