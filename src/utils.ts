@@ -1,8 +1,3 @@
-function isLetter(char: string) {
-  const wordRegex = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/;
-  return wordRegex.test(char);
-}
-
 function isNumeric(text: string): boolean {
   const regex = /^[+-]?\d+(\.\d+)?$/;
   return regex.test(text);
@@ -38,4 +33,25 @@ function findConsoleLogLineIndex(text: string) {
   return rowIndexList;
 }
 
-export { isLetter, isBasicType, handleText, findConsoleLogLineIndex };
+function isVariable(char: string) {
+  const wordRegex = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/;
+  return wordRegex.test(char);
+}
+
+/**
+ * 判断是否有效的变量声明
+ * @param text
+ * @returns boolean
+ */
+function isVariableNameValid(text: string) {
+  if (!text) return false;
+  const nestedVariable = text.split(".").every((s) => isVariable(s));
+  return isVariable(text) || nestedVariable;
+}
+
+export {
+  isBasicType,
+  handleText,
+  findConsoleLogLineIndex,
+  isVariableNameValid,
+};

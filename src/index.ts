@@ -1,17 +1,13 @@
 import * as vs from "vscode";
-import { QuickLog } from "./main";
+import { clearLog, createLog } from "./main";
 
-export function activate() {
+export function activate(context: vs.ExtensionContext) {
   const createCommandId = "log.createLog";
   const clearCommandId = "log.clearLog";
-  const quickLog = new QuickLog();
-  vs.commands.registerCommand(createCommandId, () => {
-    quickLog.createLog();
-  });
-  vs.commands.registerCommand(clearCommandId, () => {
-    // vs.window.showInformationMessage("clear!");
-    quickLog.clearLog();
-  });
+  const create = vs.commands.registerCommand(createCommandId, createLog);
+  const clear = vs.commands.registerCommand(clearCommandId, clearLog);
+  context.subscriptions.push(create);
+  context.subscriptions.push(clear);
 }
 
 export function deactivate() {}
