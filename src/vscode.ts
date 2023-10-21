@@ -1,10 +1,6 @@
 import * as vs from "vscode";
-import { Content } from "./ast";
-import {
-  findConsoleLogLineIndex,
-  handleText,
-  isVariableNameValid,
-} from "./utils";
+import { handleText } from "./utils";
+import { Config, Content } from "../types";
 
 function getActiveFileInfo() {
   const editor = vs.window.activeTextEditor;
@@ -21,11 +17,8 @@ function getAllText() {
   return editor.document.getText();
 }
 
-function getRangeTextFromEditor(
-  startLine: number,
-  endLine: number,
-  offset: number
-) {
+function getRangeTextFromEditor(config: Config) {
+  let { startLine, endLine, offset } = config;
   const editor = vs.window.activeTextEditor!;
   startLine = startLine - offset < 0 ? 0 : startLine - offset;
   const start = new vs.Position(startLine, 0);
@@ -37,20 +30,18 @@ function insertText(contents: Content[]) {
   if (!contents.length) return;
   const editor = vs.window.activeTextEditor;
   if (!editor) return;
-  // sort
   contents.sort((a, b) => b.endLine - a.endLine);
-  // create log text
   let maxEndLine = 0;
   editor
     .edit((editBuilder) => {
       contents.forEach((log) => {
-        /** if 打印在上一行 */
+        // if 打印在上一行
         if (log.variableType === "condition") log.endLine -= 1;
-        /** 变量和参数打印在下一行 */
+        // 变量和参数打印在下一行
         const isFirstLine = log.endLine <= 0;
         log.endLine = isFirstLine ? 0 : log.endLine + 1;
 
-        const space = getCurrentLineIndentation(editor, log);
+        const space = getCurrentLineIndentation(log);
         const isLastLine = log.endLine === editor.document.lineCount;
         const text = handleText(log.text, space, isLastLine);
 
@@ -69,22 +60,17 @@ function insertText(contents: Content[]) {
     });
 }
 
-function getCurrentLineIndentation(
-  editor: vs.TextEditor,
-  log: Content
-): string {
+function getSpaceByLine(line: number) {
+  const editor = vs.window.activeTextEditor!;
+  return editor.document.lineAt(line).firstNonWhitespaceCharacterIndex;
+}
+
+function getCurrentLineIndentation(log: Content): string {
   const spaceLine =
     log.variableType === "condition" ? log.endLine : log.endLine - 1;
-  const currentLine = editor.document.lineAt(spaceLine);
-
-  // Get the number of spaces in the indentation
-  let spacesCount = currentLine.firstNonWhitespaceCharacterIndex;
-  spacesCount =
-    log.variableType === "parameter" ? spacesCount + 2 : spacesCount;
-  // Generate the indentation string with spaces
-  const indentation = " ".repeat(spacesCount);
-
-  return indentation;
+  let spacesCount = getSpaceByLine(spaceLine);
+  if (log.variableType === "parameter") spacesCount += 2;
+  return " ".repeat(spacesCount);
 }
 
 function deleteText(rowIndexList: number[]) {

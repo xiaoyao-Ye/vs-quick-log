@@ -38,12 +38,7 @@ function isVariable(char: string) {
   return wordRegex.test(char);
 }
 
-/**
- * 判断是否有效的变量声明
- * @param text
- * @returns boolean
- */
-function isVariableNameValid(text: string) {
+function isVariableNameValid(text: string = "") {
   if (!text) return false;
   const nestedVariable = text.split(".").every((s) => isVariable(s));
   return isVariable(text) || nestedVariable;

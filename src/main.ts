@@ -1,4 +1,4 @@
-import { Content, collectLogs, findNodesInRange, parseTsToAST } from "./ast";
+import { logCollectByAST, findNodesInRange, parseTsToAST } from "./ast";
 import { findConsoleLogLineIndex, isVariableNameValid } from "./utils";
 import {
   deleteText,
@@ -8,52 +8,51 @@ import {
   insertText,
 } from "./vscode";
 import { languageList, offset } from "./config";
-
-function handleSelectionText(
-  isMultiple: boolean,
-  selectText: string = "",
-  endLine: number = 0
-) {
-  if (!isMultiple && isVariableNameValid(selectText)) {
-    const content = new Content(selectText, endLine, "variable");
-    const contents = [content];
-    insertText(contents);
-    return true;
-  }
-  return false;
-}
+import { Config, Content } from "../types";
 
 function createLog() {
   const fileInfo = getActiveFileInfo();
   if (!fileInfo) return;
-  const { startLine, endLine, language, selectText } = fileInfo;
+
+  const { startLine, endLine, language } = fileInfo;
   if (!languageList.includes(language)) return;
+
   const isMultiple = startLine !== endLine;
-  // const config = { offset, ...fileInfo };
+  const config = { ...fileInfo, offset, isMultiple };
 
-  const isPrint = handleSelectionText(isMultiple, selectText, endLine);
-  if (isPrint) return;
+  let contents = [];
 
-  const text = getRangeTextFromEditor(startLine, endLine, offset);
-  const ast = parseTsToAST(text);
-  const nodes = findNodesInRange(ast, startLine, endLine, offset, language);
-  let contents = collectLogs(ast, nodes, startLine, isMultiple, offset);
+  contents = handleSelectionText(config);
+  if (contents.length) return insertText(contents);
+
+  contents = getContents(config);
+  if (contents.length) return insertText(contents);
 
   const isFirstLine = startLine - 1 < 0;
-  if (!contents.length && !isMultiple && !isFirstLine) {
-    // 单行所以全部用 startLine 就好了
-    const text = getRangeTextFromEditor(startLine - 1, startLine - 1, offset);
-    const ast = parseTsToAST(text);
-    const nodes = findNodesInRange(
-      ast,
-      startLine - 1,
-      startLine - 1,
-      offset,
-      language
-    );
-    contents = collectLogs(ast, nodes, startLine - 1, isMultiple, offset);
+  if (!isMultiple && !isFirstLine) {
+    config.startLine--;
+    config.endLine--;
+    contents = getContents(config);
+    insertText(contents);
   }
-  insertText(contents);
+}
+
+function getContents(config: Config) {
+  const text = getRangeTextFromEditor(config);
+  const ast = parseTsToAST(text);
+  const nodes = findNodesInRange(ast, config);
+  const contents = logCollectByAST(ast, nodes, config);
+  return contents;
+}
+
+function handleSelectionText(config: Config) {
+  const { isMultiple, selectText, endLine } = config;
+  const contents = [];
+  if (!isMultiple && isVariableNameValid(selectText)) {
+    const content = new Content(selectText, endLine, "variable");
+    contents.push(content);
+  }
+  return contents;
 }
 
 function clearLog() {
@@ -63,4 +62,4 @@ function clearLog() {
   deleteText(rowIndexList);
 }
 
-export { createLog, clearLog, handleSelectionText };
+export { createLog, clearLog, handleSelectionText, getContents };

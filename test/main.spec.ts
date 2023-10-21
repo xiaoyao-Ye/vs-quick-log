@@ -1,41 +1,42 @@
-import { it, expect, describe } from "vitest";
-// import { QuickLog } from "../src/main";
-// import * as vs from "vscode";
+import { it, expect, describe, beforeAll, beforeEach } from "vitest";
+import { handleSelectionText } from "../src/main";
+import { Config } from "../types";
+import { offset } from "../src/config";
 
-const code = `
-var a;
-let b: string;
-const c = 1;
-const d = {
-  a: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx a",
-  b: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx b",
-};
-const e = [
-  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx e",
-  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx e",
-];
-const f: string = "";
-const { foo, bar } = { foo: 1, bar: 2 };
-const { g, ...fb } = { g: 1, foo: 1, bar: 2 };
-const { foo: foo1, bar: bar1 } = { foo: 1, bar: 2 };
-const { x, y }: { x?: string; y?: number } = {};
-const fn = (a: string, b: number) => {
+describe("Print the selected variable when a valid variable name is selected", () => {
+  let config: Config;
 
-};
-`;
+  beforeEach(() => {
+    config = {
+      startLine: 0,
+      endLine: 0,
+      offset,
+      language: "typescript",
+      isMultiple: false,
+      selectText: "",
+    };
+  });
 
-describe("create log", () => {
-  it("should print selected", () => {
-    // const quickLog = new QuickLog();
-    // quickLog.startLine = 1;
-    // quickLog.endLine = 1;
-    // quickLog.createLog();
-    // expect(quickLog.isMultiple).toEqual(false);
+  it("should return false when multi-line selection", () => {
+    config.isMultiple = true;
+    config.selectText = "name";
+
+    const contents = handleSelectionText(config);
+
+    expect(contents.length).toEqual(0);
+  });
+
+  it("should return true when a valid variable name is selected", () => {
+    config.selectText = "name";
+
+    const contents = handleSelectionText(config);
+
+    expect(contents[0].text).toEqual("name");
   });
 });
 
-describe("clear log", () => {
-  it("exported", () => {
-    expect(1).toEqual(1);
-  });
-});
+// TODO: ...
+// getContents
+// handleSelectionText
+// createLog
+//
