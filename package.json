@@ -66,12 +66,14 @@
     "publish": "bumpp && vsce publish --no-dependencies",
     "pack": "vsce package --no-dependencies",
     "test": "vitest run",
+    "coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
     "release": "bumpp && pnpm publish"
   },
   "devDependencies": {
     "@types/node": "^18.16.16",
     "@types/vscode": "^1.78.1",
+    "@vitest/coverage-istanbul": "^0.34.6",
     "@vscode/vsce": "^2.19.0",
     "bumpp": "^9.1.0",
     "tsup": "^6.7.0",
