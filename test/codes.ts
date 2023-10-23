@@ -61,4 +61,11 @@ const vueCode = `methods: {
 }
 `;
 
-export { code, vueCode };
+const clearCode = `console.log(\`( start )======>\`);
+const a = 1;
+console.log(\`( a )======>\`, a);
+const b = 2
+console.log(\`( b )======>\`, b);
+`;
+
+export { code, vueCode, clearCode };
