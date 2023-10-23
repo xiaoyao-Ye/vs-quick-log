@@ -14,11 +14,10 @@ function createLog() {
   const fileInfo = getActiveFileInfo();
   if (!fileInfo) return;
 
-  const { startLine, endLine, language } = fileInfo;
+  const { language, isMultiple, startLine } = fileInfo;
   if (!languageList.includes(language)) return;
 
-  const isMultiple = startLine !== endLine;
-  const config = { ...fileInfo, offset, isMultiple };
+  const config = { ...fileInfo, offset };
 
   let contents = [];
 

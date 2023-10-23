@@ -9,7 +9,8 @@ function getActiveFileInfo() {
   const startLine = editor.selection.start.line;
   const endLine = editor.selection.end.line;
   const selectText = editor.document.getText(editor.selection).trim();
-  return { language, startLine, endLine, selectText };
+  const isMultiple = startLine !== endLine;
+  return { language, startLine, endLine, selectText, isMultiple };
 }
 
 function getAllText() {
