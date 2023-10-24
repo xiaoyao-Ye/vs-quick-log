@@ -58,7 +58,7 @@ function getScriptContentAndStartLine(fileContent: string) {
     return { scriptContent, scriptStartLine };
   }
 
-  return null;
+  return { scriptContent: "", scriptStartLine: 0 };
 }
 
 export {

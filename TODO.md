@@ -169,8 +169,8 @@ node.body === undefined || node.body.statements.length === 0;
 - [x] bug: 超过 100 行, 鼠标光标指向有问题(也可能是 ts 解析 vue2 的 ast 导致行数有问题, vue 可能解析出 script 标签里的内容单独计算比较好)(作为两个问题去测试)
 - [x] bug: vue 中还是有位置错乱问题
 - [x] perf: 有 ===> 的 log 才清除
-- [ ] perf: (vue2 需要获取 script 去打印)(`现在应该可以直接打印了, methods 中的参数解构参数还是打印不了, 有时会把html解析成节点, 导致html中使用的变量打印在template中!`)
-- [ ] perf: 目前为了打印 vue methods 声明的函数参数, 导致任何标识符都能打印, 需要改进
+- [x] perf: (vue2 需要获取 script 去打印)(`现在应该可以直接打印了, methods 中的参数解构参数还是打印不了, 有时会把html解析成节点, 导致html中使用的变量打印在template中!`)
+- [x] perf: 目前为了打印 vue methods 声明的函数参数, 导致任何标识符都能打印, 需要改进
 - [ ] perf: else if 应该打印在 if 上面而不是单个 else if 上面
 - [ ] perf: 选中多行时, 如果选中的语句不完整, 会导致无法识别
 - [ ] perf: 函数参数多行时打印位置应该在函数体内而不是参数的下一行

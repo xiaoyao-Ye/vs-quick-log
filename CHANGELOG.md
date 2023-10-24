@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.1.4
+
+- perf: 进一步优化 vue2 中打印效果
+
 ## 0.1.3
 
 - fix: 修复了 clear console 无效的问题

@@ -45,22 +45,23 @@ function findNodesInRange(ast: ts.SourceFile, config: Config) {
 
     if (isNodeInRange && isNodesToPrint(node)) {
       nodes.push(node);
-    } else if (!isMultiple && isNodeInRange && language === "vue") {
-      // 仅vue2中需要:
-      // if (ts.isCallExpression(node)) {
-      //   node.arguments.forEach((argument) => {
-      //     if (ts.isIdentifier(argument)) {
-      //       nodes.push(argument);
-      //     }
-      //   });
-      // }
-      // TODO: 如果是解构的参数, 会是下面这种类型
-      // if (ts.isObjectLiteralExpression(node)) {
-      //   node.properties.forEach((property) => {
-      //     nodes.push(property);
-      //   });
-      // }
     }
+    // else if (!isMultiple && isNodeInRange && language === "vue") {
+    // 仅vue2中需要:
+    // if (ts.isCallExpression(node)) {
+    //   node.arguments.forEach((argument) => {
+    //     if (ts.isIdentifier(argument)) {
+    //       nodes.push(argument);
+    //     }
+    //   });
+    // }
+    // TODO: 如果是解构的参数, 会是下面这种类型
+    // if (ts.isObjectLiteralExpression(node)) {
+    //   node.properties.forEach((property) => {
+    //     nodes.push(property);
+    //   });
+    // }
+    // }
 
     ts.forEachChild(node, visit);
   }
