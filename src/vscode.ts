@@ -39,7 +39,7 @@ function insertText(contents: Content[]) {
         // if 打印在上一行
         if (log.variableType === "condition") log.endLine -= 1;
         // 变量和参数打印在下一行
-        const isFirstLine = log.endLine <= 0;
+        const isFirstLine = log.endLine < 0;
         log.endLine = isFirstLine ? 0 : log.endLine + 1;
 
         const space = getCurrentLineIndentation(log);
@@ -67,8 +67,12 @@ function getSpaceByLine(line: number) {
 }
 
 function getCurrentLineIndentation(log: Content): string {
-  const spaceLine =
-    log.variableType === "condition" ? log.endLine : log.endLine - 1;
+  const isIfStatement = log.variableType === "condition";
+  let spaceLine = log.endLine;
+  if (!isIfStatement && log.endLine > 0) {
+    spaceLine = log.endLine - 1;
+  }
+  // log.variableType === "condition" ? log.endLine : log.endLine - 1;
   let spacesCount = getSpaceByLine(spaceLine);
   if (log.variableType === "parameter") spacesCount += 2;
   return " ".repeat(spacesCount);

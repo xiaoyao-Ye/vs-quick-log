@@ -1,5 +1,9 @@
 import { logCollectByAST, findNodesInRange, parseTsToAST } from "./ast";
-import { findConsoleLogLineIndex, isVariableNameValid } from "./utils";
+import {
+  findConsoleLogLineIndex,
+  getScriptContentAndStartLine,
+  isVariableNameValid,
+} from "./utils";
 import {
   deleteText,
   getActiveFileInfo,
@@ -37,6 +41,25 @@ function createLog() {
 }
 
 function getContents(config: Config) {
+  if (config.language === "vue") {
+    const allText = getAllText();
+    // 如果是vue(主要是vue2)文件, 这里需要获取到script标签内的text 去转行为ast
+    const result = getScriptContentAndStartLine(allText);
+    if (!result) return [];
+    const { scriptContent, scriptStartLine } = result;
+    const ast = parseTsToAST(scriptContent);
+    config.offset = config.startLine - scriptStartLine;
+    // const offset = config.startLine - config.endLine;
+    // config.startLine = config.startLine - scriptStartLine;
+    // config.endLine = config.endLine + offset;
+
+    // 然后 startLine 是当前的startline-script开始行的行号 endline 是 endline- startline的差 + 新的startline
+    const nodes = findNodesInRange(ast, config);
+    // 这个函数里面计算printline的时候, 需要加上script的起始行
+    // config.startLine += scriptStartLine;
+    const contents = logCollectByAST(ast, nodes, config);
+    return contents;
+  }
   const text = getRangeTextFromEditor(config);
   const ast = parseTsToAST(text);
   const nodes = findNodesInRange(ast, config);

@@ -44,9 +44,27 @@ function isVariableNameValid(text: string = "") {
   return isVariable(text) || nestedVariable;
 }
 
+function getScriptContentAndStartLine(fileContent: string) {
+  // 非贪婪模式
+  // const scriptRegex = /<script\b[^>]*>([\s\S]*?)<\/script>/;
+  // 贪婪模式
+  const scriptRegex = /<script\b[^>]*>([\s\S]*)<\/script>/;
+  const match = fileContent.match(scriptRegex);
+
+  if (match) {
+    const scriptContent = match[1];
+    const scriptStartLine =
+      fileContent.substr(0, match.index).split("\n").length - 1;
+    return { scriptContent, scriptStartLine };
+  }
+
+  return null;
+}
+
 export {
   isBasicType,
   handleText,
   findConsoleLogLineIndex,
   isVariableNameValid,
+  getScriptContentAndStartLine,
 };
