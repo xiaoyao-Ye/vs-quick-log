@@ -42,7 +42,7 @@ describe("Print the selected variable when a valid variable name is selected", (
 
     const contents = handleSelectionText(config);
 
-    expect(contents.length).toEqual(0);
+    expect(contents.length).toBe(0);
   });
 
   it("should return true when a valid variable name is selected", () => {
@@ -50,7 +50,7 @@ describe("Print the selected variable when a valid variable name is selected", (
 
     const contents = handleSelectionText(config);
 
-    expect(contents[0].text).toEqual("name");
+    expect(contents[0].text).toBe("name");
   });
 });
 

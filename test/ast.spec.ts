@@ -56,7 +56,7 @@ describe("Should find in-range nodes by ast", () => {
 
     const nodes = findNodesInRange(ast, config);
 
-    expect(nodes.length).toEqual(3);
+    expect(nodes.length).toBe(3);
   });
 
   it("Should return IfStatement nodes when print IfStatement", () => {
@@ -65,7 +65,7 @@ describe("Should find in-range nodes by ast", () => {
 
     const nodes = findNodesInRange(ast, config);
 
-    expect(nodes.length).toEqual(1);
+    expect(nodes.length).toBe(1);
   });
 
   it("Should return parameter nodes when print function", () => {
@@ -74,18 +74,18 @@ describe("Should find in-range nodes by ast", () => {
 
     const nodes = findNodesInRange(ast, config);
 
-    expect(nodes.length).toEqual(4);
+    expect(nodes.length).toBe(4);
   });
 
   it("Should return identifier nodes when print vue methods", () => {
     const ast = parseTsToAST(vueCode);
-    config.startLine = 1;
-    config.endLine = 1;
+    config.startLine = 10;
+    config.endLine = 10;
     config.language = "vue";
 
     const nodes = findNodesInRange(ast, config);
 
-    expect(nodes.length).toEqual(1);
+    expect(nodes.length).toBe(1);
   });
 });
 

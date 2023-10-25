@@ -54,11 +54,26 @@ if (this.name === "核销码" && fn("xx") || !userId) {
 }
 `;
 
-const vueCode = `methods: {
-  test(data) {
-    // ...
+const vueCode = `<template>
+  <div>123</div>
+</template>
+
+<script>
+export default {
+  data() {
+    
+  },
+  methods: {
+    test(data) {
+      // ...
+    }
   }
 }
+
+</script>
+
+<style>
+</style>
 `;
 
 const clearCode = `console.log(\`( start )======>\`);
