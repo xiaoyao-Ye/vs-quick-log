@@ -29,6 +29,7 @@
     "vscode": "^1.78.1"
   },
   "activationEvents": [
+    "onLanguage:html",
     "onLanguage:vue",
     "onLanguage:javascript",
     "onLanguage:typescript",
