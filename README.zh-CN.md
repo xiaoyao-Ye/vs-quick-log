@@ -5,7 +5,7 @@
 <h1 align="center">Quick Create log</h1>
 
 <p align="center">
-  <a href="https://github.com/xiaoyao-Ye/vs-quick-log">English</a> | Chinese
+  <a href="https://github.com/xiaoyao-Ye/vs-quick-log">English</a> | 中文
 </p>
 
 ## Why
