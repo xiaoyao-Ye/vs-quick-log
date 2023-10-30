@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./public/cat.png"  height="150" />
+  <img src="https://raw.githubusercontent.com/xiaoyao-ye/blog/main/docs/public/img/cat.png"  height="150" />
 </p>
 
 <h1 align="center">Quick Create log</h1>
@@ -28,7 +28,7 @@
 
 > 支持 `ts` `tsx` `js` `jsx` `vue` `html` 等文件内使用。
 
-![Guide](./public/Guide-dark.png)
+![Guide](https://raw.githubusercontent.com/xiaoyao-ye/blog/main/docs/public/initApi/Guide-dark.png)
 
 ## Mac
 

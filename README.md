@@ -1,6 +1,6 @@
 <p align="center">
-  <!-- <img src="https://raw.githubusercontent.com/xiaoyao-ye/blog/main/docs/public/img/cat.png"  height="150" /> -->
-  <img src="./public/cat.png"  height="150" />
+  <img src="https://raw.githubusercontent.com/xiaoyao-ye/blog/main/docs/public/img/cat.png"  height="150" />
+  <!-- <img src="./public/cat.png"  height="150" /> -->
 </p>
 
 <h1 align="center">Quick Create log</h1>
@@ -29,9 +29,9 @@ To use, move the cursor to the print target line (or to the next line of the pri
 
 > Supports use within `ts` `tsx` `js` `jsx` `vue` `html` files.
 
-<!-- ![Guide](https://raw.githubusercontent.com/xiaoyao-ye/blog/main/docs/public/initApi/Guide-dark.png) -->
+![Guide](https://raw.githubusercontent.com/xiaoyao-ye/blog/main/docs/public/initApi/Guide-dark.png)
 
-![Guide](./public/Guide-dark.png)
+<!-- ![Guide](./public/Guide-dark.png) -->
 
 ## Mac
 

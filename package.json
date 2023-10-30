@@ -23,8 +23,7 @@
   "main": "./dist/index.js",
   "icon": "public/icon.png",
   "files": [
-    "dist",
-    "public"
+    "dist"
   ],
   "engines": {
     "vscode": "^1.78.1"
