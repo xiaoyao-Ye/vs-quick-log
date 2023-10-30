@@ -1,14 +1,11 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entryPoints: ["./src/extension.ts"],
-  bundle: true,
-  splitting: false,
-  outDir: "out",
-  // format: ["cjs", "esm"],
+  entry: ["src/index.ts"],
   format: ["cjs"],
-  // format: ["esm"],
-  // dts: true,
+  shims: false,
+  sourcemap: true,
+  dts: false,
   clean: true,
   external: ["vscode"],
 });
