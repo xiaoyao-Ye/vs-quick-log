@@ -1,54 +1,63 @@
 <p align="center">
-	<image src="https://raw.githubusercontent.com/xiaoyao-ye/blog/main/docs/public/img/cat.png"  height="150" />
+  <!-- <img src="https://raw.githubusercontent.com/xiaoyao-ye/blog/main/docs/public/img/cat.png"  height="150" /> -->
+  <img src="./public/cat.png"  height="150" />
 </p>
 
-<h1 align="center">
-Quick Create log
-</h1>
+<h1 align="center">Quick Create log</h1>
+
+<p align="center">
+  English | <a href="https://github.com/xiaoyao-Ye/vs-quick-log/blob/main/README.zh-CN.md">Chinese</a>
+</p>
 
 ## Why
 
-调试时经常需要需要输入 `log` 生成 `console.log('|', |)` 的代码片段然后输入需要打印的内容。这太麻烦了！
+When debugging, you often need to type `log` to generate a `console.log('|', |)` snippet and then type in what you need to print. This is a pain in the ass!
 
-在 `vscode` 搜索 `vs-quick-log` 或 `Quick Create log` 安装此扩展，让它直接帮你创建不香吗？
+Install this extension by searching `vscode` for `vs-quick-log` or `Quick Create log`, and let it create it for you directly.
+
+Most of the existing extensions of the same type need to move the cursor near the declared variable, the advantage here is that the cursor in the current line or the next line will recognize the print itself, do not need to intentionally move the cursor or use the mouse to click on it
 
 ## Features
 
-- `Ctrl + Shift + L` 创建 `console.log`
-  - ✨ 打印 if 语句中的条件判断
-  - ✨ 打印函数参数
-  - ✨ 打印变量
-- `Ctrl + Shift + DELETE` 删除该插件创建的 `console.log`
+To use, move the cursor to the print target line (or to the next line of the print target).
 
-> 支持 `ts` `js` `tsx` `jsx` `vue` `html` 等文件类型。使用时将光标移动至目标所在行(或在目标的下一行)
+- `Ctrl + Shift + L` Create `console.log`
+  - ✨ You can print "conditional judgment in an if statement"
+  - ✨ You can print function parameters
+  - ✨ You can print variable names
+- `Ctrl + Shift + DELETE` Delete the `console.log` created by the plugin.
 
-![Guide](https://raw.githubusercontent.com/xiaoyao-ye/blog/main/docs/public/initApi/Guide-dark.png)
+> Supports use within `ts` `tsx` `js` `jsx` `vue` `html` files.
+
+<!-- ![Guide](https://raw.githubusercontent.com/xiaoyao-ye/blog/main/docs/public/initApi/Guide-dark.png) -->
+
+![Guide](./public/Guide-dark.png)
 
 ## Mac
 
-> mac 使用 cmd
+> mac Use cmd
 
-- `Cmd + Shift + L` 创建 `console.log`
-- `Cmd + Shift + L` 删除该插件创建的 `console.log`
+- `Cmd + Shift + L` Create `console.log`
+- `Cmd + Shift + L` Delete the `console.log` created by the plugin.
 
 ## More
 
-- 需要打印 `this.xx.xx` `obj.xx.xx` 这种非声明变量需要先选中内容然后使用打印命令
-- 需要打印大批量的 `console.log` 可以选中所有需要打印的行然后使用打印命令
+- To print variables like `this.xx.xx` `obj.xx.xx`, you need to select the contents and then use the print command.
+- To print a large `console.log`, you can select all the lines you want to print and use the print command.
 
 ## FAQ
 
-1. 当前行同时存在变量和参数只创建了参数的 console.log ？
+1. The current line with both variables and parameters only creates a `console.log` of the parameters?
 
-   > 这是刻意为之, 如果同一行代码同时存在变量和参数大概率该行是一个函数表达式, 这种情况我们一般需要调试的是参数而不是函数
+   > This is intentional, if there are both variables and parameters in the same line of code there is a high probability that the line is a function expression, in this case we generally need to debug the parameters rather than the function.
 
    ```javascript
    const fn = (a, b) => {
-     // 这里一般需要打印的是 a, b 而不是 fn
+     // Here it is usually necessary to print a, b instead of fn.
    };
    ```
 
-[GitHub 欢迎 issue & pr](https://github.com/xiaoyao-Ye/vs-quick-log)
+[Feel free to ask questions or pull requests](https://github.com/xiaoyao-Ye/vs-quick-log)
 
 ## License
 
