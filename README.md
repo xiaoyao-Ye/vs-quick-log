@@ -1,6 +1,6 @@
 <p align="center">
   <!-- <img src="https://raw.githubusercontent.com/xiaoyao-ye/blog/main/docs/public/img/cat.png"  height="150" /> -->
-    <img src="./public/icon.png"  height="150" />
+    <img src="https://s2.loli.net/2023/10/31/yHlgxL8kUWG7AVo.png"  height="150" />
 </p>
 
 <h1 align="center">Quick Create log</h1>
@@ -30,8 +30,9 @@
 > 支持 `ts` `tsx` `js` `jsx` `vue` `html` 等文件内使用。
 
 <!-- ![Guide](https://raw.githubusercontent.com/xiaoyao-ye/blog/main/docs/public/initApi/Guide-dark.png) -->
+<!-- ![Guide](./public/Guide-dark.png) -->
 
-![Guide](./public/Guide-dark.png)
+![Guide.png](https://s2.loli.net/2023/10/31/kMy7bhTZgGOaVYw.png)
 
 ## Mac
 
