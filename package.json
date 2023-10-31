@@ -2,7 +2,7 @@
   "publisher": "Ghosteye",
   "name": "vs-quick-log",
   "displayName": "Quick create log",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "private": true,
   "description": "Identify and print variables quickly, accurately and efficiently.",
   "author": "_Ghosteye <Ghosteye@yeah.net>",
@@ -21,9 +21,11 @@
     "Debuggers"
   ],
   "main": "./dist/index.js",
-  "icon": "public/icon.png",
+  "icon": "./public/icon.png",
   "files": [
-    "dist"
+    "dist",
+    "public",
+    "README.md"
   ],
   "engines": {
     "vscode": "^1.78.1"
