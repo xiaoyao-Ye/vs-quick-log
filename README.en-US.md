@@ -39,7 +39,7 @@ To use, move the cursor to the print target line (or to the next line of the pri
 > mac Use cmd
 
 - `Cmd + Shift + L` Create `console.log`
-- `Cmd + Shift + L` Delete the `console.log` created by the plugin.
+- `Cmd + Shift + DELETE` Delete the `console.log` created by the plugin.
 
 ## More
 
