@@ -39,7 +39,7 @@
 > mac 使用 cmd
 
 - `Cmd + Shift + L` 创建 `console.log`
-- `Cmd + Shift + L` 删除该插件创建的 `console.log`
+- `Cmd + Shift + DELETE` 删除该插件创建的 `console.log`
 
 ## More
 
