@@ -27,12 +27,28 @@ To use, move the cursor to the print target line (or to the next line of the pri
   - ✨ You can print variable names
 - `Ctrl + Shift + DELETE` Delete the `console.log` created by the plugin.
 
-> Supports use within `ts` `tsx` `js` `jsx` `vue` `html` files.
+> Supports use within `ts` `tsx` `js` `jsx` `vue` `html` files.🍺enjoying!
 
 <!-- ![Guide](https://raw.githubusercontent.com/xiaoyao-ye/blog/main/docs/public/initApi/Guide-dark.png) -->
 <!-- ![Guide](./public/Guide-dark.png) -->
 
 ![Guide.png](https://s2.loli.net/2023/10/31/kMy7bhTZgGOaVYw.png)
+
+## Options
+
+- printFilename
+
+  - type: `boolean`
+  - default: `false`
+
+  ```js
+  // default
+  console.log(`( foo )===============>`, foo); // A.ts
+  console.log(`( foo )===============>`, foo); // B.ts
+  // enable
+  console.log(`( A.ts: foo )===============>`, foo); // A.ts
+  console.log(`( B.ts: foo )===============>`, foo); // B.ts
+  ```
 
 ## Mac
 

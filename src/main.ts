@@ -23,20 +23,20 @@ function createLog() {
 
   const config = { ...fileInfo, offset };
 
-  let contents = [];
+  let contents: Content[] = [];
 
   contents = handleSelectionText(config);
-  if (contents.length) return insertText(contents);
+  if (contents.length) return insertText(contents, config.fileName);
 
   contents = getContents(config);
-  if (contents.length) return insertText(contents);
+  if (contents.length) return insertText(contents, config.fileName);
 
   const isFirstLine = startLine - 1 < 0;
   if (!isMultiple && !isFirstLine) {
     config.startLine--;
     config.endLine--;
     contents = getContents(config);
-    insertText(contents);
+    insertText(contents, config.fileName);
   }
 }
 

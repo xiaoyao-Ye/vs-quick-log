@@ -2,7 +2,7 @@
   "publisher": "Ghosteye",
   "name": "vs-quick-log",
   "displayName": "Quick create log",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "private": true,
   "description": "Identify and print variables quickly, accurately and efficiently.",
   "author": "_Ghosteye <Ghosteye@yeah.net>",
@@ -39,6 +39,16 @@
     "onLanguage:typescriptreact"
   ],
   "contributes": {
+    "configuration": {
+      "title": "Quick create log",
+      "properties": {
+        "log.printFilename": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable printing of file name prefixes."
+        }
+      }
+    },
     "commands": [
       {
         "command": "log.createLog",
