@@ -15,9 +15,15 @@ const isBasicType = (str: string) => {
   return isNumeric(str) || isString(str) || isBoolean(str);
 };
 
-function handleText(text: string, space: string, isLastLine: boolean) {
+function handleText(
+  text: string,
+  space: string,
+  isLastLine: boolean,
+  fileName?: string
+) {
   const wrap = isLastLine ? "\r\n" : "";
-  const log = `console.log(\`( ${text} )===============>\`, ${text});`;
+  const info = fileName ? `${fileName}: ${text}` : text;
+  const log = `console.log(\`( ${info} )===============>\`, ${text});`;
   return `${wrap}${space}${log}\r\n`;
 }
 

@@ -27,12 +27,28 @@
   - ✨ 可打印变量
 - `Ctrl + Shift + DELETE` 删除该插件创建的 `console.log`
 
-> 支持 `ts` `tsx` `js` `jsx` `vue` `html` 等文件内使用。
+> 支持 `ts` `tsx` `js` `jsx` `vue` `html` 等文件内使用。🍺enjoying!
 
 <!-- ![Guide](https://raw.githubusercontent.com/xiaoyao-ye/blog/main/docs/public/initApi/Guide-dark.png) -->
 <!-- ![Guide](./public/Guide-dark.png) -->
 
 ![Guide.png](https://s2.loli.net/2023/10/31/kMy7bhTZgGOaVYw.png)
+
+## Options
+
+- printFilename
+
+  - 类型: `boolean`
+  - 默认值: `false`
+
+  ```js
+  // 默认
+  console.log(`( foo )===============>`, foo); // A.ts
+  console.log(`( foo )===============>`, foo); // B.ts
+  // 启用
+  console.log(`( A.ts: foo )===============>`, foo); // A.ts
+  console.log(`( B.ts: foo )===============>`, foo); // B.ts
+  ```
 
 ## Mac
 

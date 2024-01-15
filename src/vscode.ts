@@ -5,12 +5,20 @@ import { Config, Content } from "../types";
 function getActiveFileInfo() {
   const editor = vs.window.activeTextEditor;
   if (!editor) return;
+
+  // const myExtension = vs.extensions.getExtension("vs-quick-log");
+  const config = vs.workspace.getConfiguration("log");
+  const enablePrintFilename = config.get("printFilename");
+  const fileName = enablePrintFilename
+    ? editor.document.fileName.split("\\").pop()
+    : undefined;
+
   const language = editor.document.languageId;
   const startLine = editor.selection.start.line;
   const endLine = editor.selection.end.line;
   const selectText = editor.document.getText(editor.selection).trim();
   const isMultiple = startLine !== endLine;
-  return { language, startLine, endLine, selectText, isMultiple };
+  return { language, startLine, endLine, selectText, isMultiple, fileName };
 }
 
 function getAllText() {
@@ -27,7 +35,7 @@ function getRangeTextFromEditor(config: Config) {
   return editor.document.getText(new vs.Range(start, end));
 }
 
-function insertText(contents: Content[]) {
+function insertText(contents: Content[], fileName?: string) {
   if (!contents.length) return;
   const editor = vs.window.activeTextEditor;
   if (!editor) return;
@@ -44,7 +52,7 @@ function insertText(contents: Content[]) {
 
         const space = getCurrentLineIndentation(log);
         const isLastLine = log.endLine === editor.document.lineCount;
-        const text = handleText(log.text, space, isLastLine);
+        const text = handleText(log.text, space, isLastLine, fileName);
 
         const position = new vs.Position(log.endLine, 0);
         editBuilder.insert(position, text);
