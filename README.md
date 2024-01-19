@@ -9,6 +9,10 @@
   <a href="https://github.com/xiaoyao-Ye/vs-quick-log/blob/main/README.en-US.md">English</a> | 中文
 </p>
 
+[![version](https://img.shields.io/visual-studio-marketplace/v/ghosteye.vs-quick-log?color=%232ba1f1&logo=visual-studio-code&logoColor=%232ba1f1)](https://marketplace.visualstudio.com/items?itemName=ghosteye.vs-quick-log)
+[![installs](https://img.shields.io/visual-studio-marketplace/azure-devops/installs/total/ghosteye.vs-quick-log?label=Installs)](https://marketplace.visualstudio.com/items?itemName=ghosteye.vs-quick-log)
+[![star](https://img.shields.io/github/stars/xiaoyao-Ye/vs-quick-log)](https://github.com/xiaoyao-Ye/vs-quick-log/stargazers)
+
 ## Why
 
 调试时经常需要输入 `log` 生成 `console.log('|', |)` 的代码片段然后输入需要打印的内容。这太麻烦了！
