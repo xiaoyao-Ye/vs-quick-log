@@ -9,6 +9,10 @@
   English | <a href="https://github.com/xiaoyao-Ye/vs-quick-log">中文</a>
 </p>
 
+[![version](https://img.shields.io/visual-studio-marketplace/v/ghosteye.vs-quick-log?color=%232ba1f1&logo=visual-studio-code&logoColor=%232ba1f1)](https://marketplace.visualstudio.com/items?itemName=ghosteye.vs-quick-log)
+[![installs](https://img.shields.io/visual-studio-marketplace/azure-devops/installs/total/ghosteye.vs-quick-log?label=Installs)](https://marketplace.visualstudio.com/items?itemName=ghosteye.vs-quick-log)
+[![star](https://img.shields.io/github/stars/xiaoyao-Ye/vs-quick-log)](https://github.com/xiaoyao-Ye/vs-quick-log/stargazers)
+
 ## Why
 
 When debugging, you often need to type `log` to generate a `console.log('|', |)` snippet and then type in what you need to print. This is a pain in the ass!
