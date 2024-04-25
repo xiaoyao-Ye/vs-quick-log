@@ -1,6 +1,6 @@
 import * as ts from "typescript";
-import { isBasicType } from "./utils";
 import { Config, Content, VariableType } from "../types";
+import { isBasicType } from "./utils";
 
 function isNodesToPrint(node: ts.Node) {
   return (
@@ -175,4 +175,4 @@ function logCollectByAST(ast: ts.SourceFile, nodes: ts.Node[], config: Config) {
   return contents;
 }
 
-export { parseTsToAST, findNodesInRange, logCollectByAST, isNodesToPrint };
+export { findNodesInRange, isNodesToPrint, logCollectByAST, parseTsToAST };

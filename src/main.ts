@@ -1,4 +1,6 @@
-import { logCollectByAST, findNodesInRange, parseTsToAST } from "./ast";
+import { Config, Content } from "../types";
+import { findNodesInRange, logCollectByAST, parseTsToAST } from "./ast";
+import { languageList, offset } from "./config";
 import {
   findConsoleLogLineIndex,
   getScriptContentAndStartLine,
@@ -11,8 +13,6 @@ import {
   getRangeTextFromEditor,
   insertText,
 } from "./vscode";
-import { languageList, offset } from "./config";
-import { Config, Content } from "../types";
 
 function createLog() {
   const fileInfo = getActiveFileInfo();
@@ -80,4 +80,4 @@ function clearLog() {
   deleteText(rowIndexList);
 }
 
-export { createLog, clearLog, handleSelectionText, getContents };
+export { clearLog, createLog, getContents, handleSelectionText };

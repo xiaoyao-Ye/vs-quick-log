@@ -10,4 +10,4 @@ const languageList = [
 
 const offset = 100;
 
-export { offset, languageList };
+export { languageList, offset };

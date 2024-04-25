@@ -68,9 +68,9 @@ function getScriptContentAndStartLine(fileContent: string) {
 }
 
 export {
-  isBasicType,
-  handleText,
   findConsoleLogLineIndex,
-  isVariableNameValid,
   getScriptContentAndStartLine,
+  handleText,
+  isBasicType,
+  isVariableNameValid,
 };

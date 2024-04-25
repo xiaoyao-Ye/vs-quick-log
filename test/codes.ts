@@ -83,4 +83,4 @@ const b = 2
 console.log(\`( b )======>\`, b);
 `;
 
-export { code, vueCode, clearCode };
+export { clearCode, code, vueCode };

@@ -1,14 +1,14 @@
 import ts from "typescript";
-import { it, expect, describe, beforeAll, beforeEach } from "vitest";
+import { beforeAll, beforeEach, describe, expect, it } from "vitest";
 import {
   findNodesInRange,
   isNodesToPrint,
   logCollectByAST,
   parseTsToAST,
 } from "../src/ast";
-import { code, vueCode } from "./codes";
 import { offset } from "../src/config";
 import { Config } from "../types";
+import { code, vueCode } from "./codes";
 
 describe("Should find in-range nodes by ast", () => {
   let ast: ts.SourceFile;
