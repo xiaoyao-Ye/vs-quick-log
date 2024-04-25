@@ -41,6 +41,7 @@ function findConsoleLogLineIndex(text: string) {
 }
 
 function isVariable(char: string) {
+  if (/\[.*\]/.test(char)) char = char.split("[")[0];
   const wordRegex = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/;
   return wordRegex.test(char);
 }
