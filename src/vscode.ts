@@ -8,10 +8,15 @@ function getActiveFileInfo() {
 
   // const myExtension = vs.extensions.getExtension("vs-quick-log");
   const config = vs.workspace.getConfiguration("log");
-  const enablePrintFilename = config.get("printFilename");
-  const fileName = enablePrintFilename
-    ? editor.document.fileName.split("\\").pop()
-    : undefined;
+  const printPath = config.get("printPath");
+  let fileName;
+  const path = editor.document.fileName.replaceAll("\\", "/");
+  if (printPath === "fullpath") {
+    const rootPath = vs.workspace.workspaceFolders?.[0].uri.path.slice(1);
+    fileName = rootPath ? path.split(rootPath)[1] : path;
+  } else if (printPath === "filename") {
+    fileName = path.split("/").pop();
+  }
 
   const language = editor.document.languageId;
   const startLine = editor.selection.start.line;

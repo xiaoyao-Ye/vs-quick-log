@@ -22,15 +22,16 @@ function handleText(
   fileName?: string
 ) {
   const wrap = isLastLine ? "\r\n" : "";
-  const info = fileName ? `${fileName}: ${text}` : text;
-  const log = `console.log(\`( ${info} )===============>\`, ${text});`;
+  const info = fileName ? ` ( ${fileName} )` : "";
+  const log = `console.log("=============== ${text}${info} ===============\\n", ${text});`;
   return `${wrap}${space}${log}\r\n`;
 }
 
 function findConsoleLogLineIndex(text: string) {
   // 如果使用全局匹配会导致每次匹配都会从上一次的位置继续, 导致 regex.test(line) 匹配同一个字符串第13579..是true246810....是false
   // const regex = /^(?!\/\/|\/\*)\s*console.log(.*)/;
-  const regex = /^(?!\/\/|\/\*)\s*console.log(\(.*\)\=+>.*)/;
+  // const regex = /^(?!\/\/|\/\*)\s*console.log(\(.*\)\=+>.*)/;
+  const regex = /^(?!\/\/|\/\*)\s*console.log\(('|")=+.*=+\\n('|").*\)/;
   const rowIndexList: number[] = [];
   // text.split("\r\n").forEach((line, rowIndex) => {
   text.split("\n").forEach((line, rowIndex) => {
