@@ -40,18 +40,21 @@
 
 ## Options
 
-- printFilename
-
-  - 类型: `boolean`
-  - 默认值: `false`
+- printPath
+  - type: `string`
+  - default: `none`
+  - enum: ['none', 'filename', 'fullpath']
 
   ```js
-  // 默认
-  console.log(`( foo )===============>`, foo); // A.ts
-  console.log(`( foo )===============>`, foo); // B.ts
-  // 启用
-  console.log(`( A.ts: foo )===============>`, foo); // A.ts
-  console.log(`( B.ts: foo )===============>`, foo); // B.ts
+  // none
+  console.log("=============== foo ===============\n", foo); // A.ts
+  console.log("=============== foo ===============\n", foo); // B.ts
+  // filename
+  console.log("=============== foo ( A.ts ) ===============\n", foo); // A.ts
+  console.log("=============== foo ( B.ts ) ===============\n", foo); // B.ts
+  // fullpath
+  console.log("=============== foo ( /src/components/A.ts ) ===============\n", foo); // A.ts
+  console.log("=============== foo ( /src/components/B.ts ) ===============\n", foo); // B.ts
   ```
 
 ## Mac

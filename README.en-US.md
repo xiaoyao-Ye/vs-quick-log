@@ -40,18 +40,21 @@ To use, move the cursor to the print target line (or to the next line of the pri
 
 ## Options
 
-- printFilename
-
-  - type: `boolean`
-  - default: `false`
+- printPath
+  - type: `string`
+  - default: `none`
+  - enum: ['none', 'filename', 'fullpath']
 
   ```js
-  // default
-  console.log(`( foo )===============>`, foo); // A.ts
-  console.log(`( foo )===============>`, foo); // B.ts
-  // enable
-  console.log(`( A.ts: foo )===============>`, foo); // A.ts
-  console.log(`( B.ts: foo )===============>`, foo); // B.ts
+  // none
+  console.log("=============== foo ===============\n", foo); // A.ts
+  console.log("=============== foo ===============\n", foo); // B.ts
+  // filename
+  console.log("=============== foo ( A.ts ) ===============\n", foo); // A.ts
+  console.log("=============== foo ( B.ts ) ===============\n", foo); // B.ts
+  // fullpath
+  console.log("=============== foo ( /src/components/A.ts ) ===============\n", foo); // A.ts
+  console.log("=============== foo ( /src/components/B.ts ) ===============\n", foo); // B.ts
   ```
 
 ## Mac

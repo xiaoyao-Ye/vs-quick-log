@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.0.0
+
+- feat: 移除 printFilename 配置项, 相关功能移动至 printPath
+- feat: 允许打印中括号语法变量
+- perf: 使用删除命令时, 被格式化换行的 console 也能正常删除
+- style: 调整了打印内容, 现在查看打印内容更直观
+
 ## 0.2.0
 
 - feat: 新增扩展配置项, 启用将会打印当前文件名称
