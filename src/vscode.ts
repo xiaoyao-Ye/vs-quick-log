@@ -1,6 +1,6 @@
 import * as vs from "vscode";
-import { handleText } from "./utils";
 import { Config, Content } from "../types";
+import { handleText } from "./utils";
 
 function getActiveFileInfo() {
   const editor = vs.window.activeTextEditor;
@@ -103,9 +103,9 @@ function deleteText(rowIndexList: number[]) {
 }
 
 export {
-  getAllText,
+  deleteText,
   getActiveFileInfo,
+  getAllText,
   getRangeTextFromEditor,
   insertText,
-  deleteText,
 };

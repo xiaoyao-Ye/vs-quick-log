@@ -1,14 +1,14 @@
-import { it, expect, describe, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { offset } from "../src/config";
 import {
   clearLog,
   createLog,
   getContents,
   handleSelectionText,
 } from "../src/main";
-import { Config } from "../types";
-import { offset } from "../src/config";
-import { clearCode, code } from "./codes";
 import * as vscodeAPI from "../src/vscode";
+import { Config } from "../types";
+import { clearCode, code } from "./codes";
 
 // 因为无法导入 vscode 这个模块, 不 mock 会报错:
 // Error: Failed to load url vscode (resolved id: vscode) in E:/xiaoyao-Ye/vs-quick-log/src/vscode.ts. Does the file exist?
