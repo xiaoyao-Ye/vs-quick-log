@@ -76,11 +76,14 @@ export default {
 </style>
 `;
 
-const clearCode = `console.log(\`( start )======>\`);
+const clearCode = ` console.log("=============== foo ===============\\n", foo);
 const a = 1;
-console.log(\`( a )======>\`, a);
+console.log("=============== a ( /src/xx/xx.vue ) ===============\\n", a);
 const b = 2
-console.log(\`( b )======>\`, b);
+console.log(
+  "=============== b ===============\\n", 
+  b
+);
 `;
 
 export { clearCode, code, vueCode };

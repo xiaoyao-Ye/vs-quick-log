@@ -32,11 +32,29 @@ function findConsoleLogLineIndex(text: string) {
   // const regex = /^(?!\/\/|\/\*)\s*console.log(.*)/;
   // const regex = /^(?!\/\/|\/\*)\s*console.log(\(.*\)\=+>.*)/;
   const regex = /^(?!\/\/|\/\*)\s*console.log\(('|")=+.*=+\\n('|").*\)/;
+  const firstLine = /^(?!\/\/|\/\*)\s*console.log\(/;
+  const secondLine = /^(?!\/\/|\/\*)\s*('|")=+.*=+\\n('|")/;
+  const fourthLine = /^(?!\/\/|\/\*)\s*\)/;
   const rowIndexList: number[] = [];
   // text.split("\r\n").forEach((line, rowIndex) => {
-  text.split("\n").forEach((line, rowIndex) => {
-    if (regex.test(line)) rowIndexList.push(rowIndex);
-  });
+  const lineList = text.split("\n");
+  for (let i = 0; i < lineList.length; i++) {
+    const line = lineList[i];
+    if (rowIndexList.includes(i)) continue;
+    if (regex.test(line)) {
+      rowIndexList.push(i);
+      continue;
+    }
+
+    const secondLineText = lineList[i + 1] || "";
+    const fourthLineText = lineList[i + 3] || "";
+    if (
+      firstLine.test(line) &&
+      secondLine.test(secondLineText) &&
+      fourthLine.test(fourthLineText)
+    )
+      rowIndexList.push(i, i + 1, i + 2, i + 3);
+  }
   return rowIndexList;
 }
 
