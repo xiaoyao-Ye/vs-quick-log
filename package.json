@@ -2,7 +2,7 @@
   "publisher": "Ghosteye",
   "name": "vs-quick-log",
   "displayName": "Quick create log",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Identify and print variables quickly, accurately and efficiently.",
   "author": "_Ghosteye <Ghosteye@yeah.net>",
@@ -42,10 +42,15 @@
     "configuration": {
       "title": "Quick create log",
       "properties": {
-        "log.printFilename": {
-          "type": "boolean",
-          "default": false,
-          "description": "Enable printing of file name prefixes."
+        "log.printPath": {
+          "type": "string",
+          "default": "none",
+          "enum": [
+            "none",
+            "filename",
+            "fullpath"
+          ],
+          "markdownDescription": "Enable printing of file path.(启用打印文件路径)\n - `none` Do not print path(不打印路径) \n - `filename` Print file name(只打印文件名称) \n - `fullpath` Print all paths(打印工作目录到文件的路径)"
         }
       }
     },
