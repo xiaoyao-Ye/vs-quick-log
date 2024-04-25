@@ -65,6 +65,7 @@ describe("should create console.log by active file", () => {
       language: "typescript",
       isMultiple: false,
       selectText: "",
+      fileName: undefined,
     };
   });
 
@@ -114,6 +115,6 @@ describe("should clear console.log", () => {
 
     clearLog();
 
-    expect(vscodeAPI.deleteText).toHaveBeenCalledWith([4, 2, 0]);
+    expect(vscodeAPI.deleteText).toHaveBeenCalledWith([7, 6, 5, 4, 2, 0]);
   });
 });

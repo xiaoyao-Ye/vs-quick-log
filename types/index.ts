@@ -18,4 +18,5 @@ export interface Config {
   language: string;
   isMultiple: boolean;
   selectText: string;
+  fileName: string | undefined;
 }
