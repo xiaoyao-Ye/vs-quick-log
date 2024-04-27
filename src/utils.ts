@@ -4,7 +4,7 @@ function isNumeric(text: string): boolean {
 }
 
 const isString = (str: string) => {
-  return /^["'].*["']$/.test(str);
+  return /^(["']).*\1$/.test(str);
 };
 
 const isBoolean = (str: string) => {
