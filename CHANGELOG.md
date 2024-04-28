@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.0.1
+
+- feat: 可以使用命令直接打印vue2的 `this.xx` 不在需要选中才能打印.
+- perf: 修改打印横线的长度
+
 ## 1.0.0
 
 - feat: 移除 printFilename 配置项, 相关功能移动至 printPath

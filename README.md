@@ -47,14 +47,14 @@
 
   ```js
   // none
-  console.log("=============== foo ===============\n", foo); // A.ts
-  console.log("=============== foo ===============\n", foo); // B.ts
+  console.log("======= foo =======\n", foo); // A.ts
+  console.log("======= foo =======\n", foo); // B.ts
   // filename
-  console.log("=============== foo ( A.ts ) ===============\n", foo); // A.ts
-  console.log("=============== foo ( B.ts ) ===============\n", foo); // B.ts
+  console.log("======= foo ( A.ts ) =======\n", foo); // A.ts
+  console.log("======= foo ( B.ts ) =======\n", foo); // B.ts
   // fullpath
-  console.log("=============== foo ( /src/components/A.ts ) ===============\n", foo); // A.ts
-  console.log("=============== foo ( /src/components/B.ts ) ===============\n", foo); // B.ts
+  console.log("======= foo ( /src/components/A.ts ) =======\n", foo); // A.ts
+  console.log("======= foo ( /src/components/B.ts ) =======\n", foo); // B.ts
   ```
 
 ## Mac
@@ -66,7 +66,7 @@
 
 ## More
 
-- 需要打印 `this.xx.xx` `obj.xx.xx` 这种变量, 需要先选中内容然后使用打印命令
+- 需要打印 `obj.xx.xx` 这种变量, 需要先选中内容然后使用打印命令
 - 打印大批量的 `console.log` 可以选中所有需要打印的行然后使用打印命令
 
 ## FAQ

@@ -47,14 +47,14 @@ To use, move the cursor to the print target line (or to the next line of the pri
 
   ```js
   // none
-  console.log("=============== foo ===============\n", foo); // A.ts
-  console.log("=============== foo ===============\n", foo); // B.ts
+  console.log("======= foo =======\n", foo); // A.ts
+  console.log("======= foo =======\n", foo); // B.ts
   // filename
-  console.log("=============== foo ( A.ts ) ===============\n", foo); // A.ts
-  console.log("=============== foo ( B.ts ) ===============\n", foo); // B.ts
+  console.log("======= foo ( A.ts ) =======\n", foo); // A.ts
+  console.log("======= foo ( B.ts ) =======\n", foo); // B.ts
   // fullpath
-  console.log("=============== foo ( /src/components/A.ts ) ===============\n", foo); // A.ts
-  console.log("=============== foo ( /src/components/B.ts ) ===============\n", foo); // B.ts
+  console.log("======= foo ( /src/components/A.ts ) =======\n", foo); // A.ts
+  console.log("======= foo ( /src/components/B.ts ) =======\n", foo); // B.ts
   ```
 
 ## Mac
@@ -66,7 +66,7 @@ To use, move the cursor to the print target line (or to the next line of the pri
 
 ## More
 
-- To print variables like `this.xx.xx` `obj.xx.xx`, you need to select the contents and then use the print command.
+- To print variables like `obj.xx.xx`, you need to select the contents and then use the print command.
 - To print a large `console.log`, you can select all the lines you want to print and use the print command.
 
 ## FAQ
