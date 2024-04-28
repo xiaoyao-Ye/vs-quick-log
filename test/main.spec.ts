@@ -8,7 +8,7 @@ import {
 } from "../src/main";
 import * as vscodeAPI from "../src/vscode";
 import { Config } from "../types";
-import { clearCode, code } from "./codes";
+import { clearCode, code, vue2Code } from "./codes";
 
 // 因为无法导入 vscode 这个模块, 不 mock 会报错:
 // Error: Failed to load url vscode (resolved id: vscode) in E:/xiaoyao-Ye/vs-quick-log/src/vscode.ts. Does the file exist?
@@ -33,6 +33,7 @@ describe("Print the selected variable when a valid variable name is selected", (
       language: "typescript",
       isMultiple: false,
       selectText: "",
+      fileName: undefined,
     };
   });
 
@@ -67,6 +68,18 @@ describe("should create console.log by active file", () => {
       selectText: "",
       fileName: undefined,
     };
+  });
+
+  it("should print log when a vue 2 variable assignment", () => {
+    config.startLine = 22;
+    config.endLine = 22;
+    config.offset = 12;
+    config.language = "vue";
+
+    vi.spyOn(vscodeAPI, "getAllText").mockReturnValue(vue2Code);
+    const contents = getContents(config);
+
+    expect(contents.length).toBe(1);
   });
 
   it("should return print info when a valid line is selected", () => {

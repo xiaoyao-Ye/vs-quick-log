@@ -86,4 +86,33 @@ console.log(
 );
 `;
 
-export { clearCode, code, vueCode };
+const vue2Code = `<template>
+  <div>
+    <a-spin :spinning="loading" size="large" tip="loading...">
+      <Nuxt />
+    </a-spin>
+
+    <Totop />
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      loading: true,
+    }
+  },
+  components: {
+    Totop: () => import('@/components/Totop/index')
+  },
+  mounted() {
+    setTimeout(() => {
+      this.loading = false;
+    }, 500);
+  },
+}
+</script>
+`;
+
+export { clearCode, code, vue2Code, vueCode };

@@ -40,9 +40,25 @@ function createLog() {
   }
 }
 
+function logCollectByV2(text: string, config: Config) {
+  const textLine = text.split("\n");
+  const currentLine = textLine[config.offset];
+  const regexp = /^(?!\s*(?!\/\/|\\*))\s*this\..*\s*=\s*.*/;
+  if (regexp.test(currentLine)) {
+    const variable = currentLine.split("=")[0];
+    const log = new Content(variable.trim(), config.endLine, "variable");
+    return [log];
+  }
+  return [];
+}
+
 function getContents(config: Config) {
   const text = getContextText(config);
   if (!text) return [];
+
+  const V2Contents = logCollectByV2(text, config);
+  if (V2Contents.length) return V2Contents;
+
   const ast = parseTsToAST(text);
   const nodes = findNodesInRange(ast, config);
   const contents = logCollectByAST(ast, nodes, config);
