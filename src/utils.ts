@@ -23,7 +23,7 @@ function handleText(
 ) {
   const wrap = isLastLine ? "\r\n" : "";
   const info = fileName ? ` ( ${fileName} )` : "";
-  const log = `console.log("=============== ${text}${info} ===============\\n", ${text});`;
+  const log = `console.log("======= ${text}${info} =======\\n", ${text});`;
   return `${wrap}${space}${log}\r\n`;
 }
 
