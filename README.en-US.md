@@ -31,12 +31,12 @@ To use, move the cursor to the print target line (or to the next line of the pri
   - ✨ You can print variable names
 - `Ctrl + Shift + DELETE` Delete the `console.log` created by the plugin.
 
-> Supports use within `ts` `tsx` `js` `jsx` `vue` `html` files.🍺enjoying!
+> Supports use within `ts` `tsx` `js` `jsx` `html` `vue(vue2 & vue3)` files.🍺enjoying!
 
 <!-- ![Guide](https://raw.githubusercontent.com/xiaoyao-ye/blog/main/docs/public/initApi/Guide-dark.png) -->
 <!-- ![Guide](./public/Guide-dark.png) -->
 
-![Guide.png](https://s2.loli.net/2023/10/31/kMy7bhTZgGOaVYw.png)
+![Guide.png](https://s2.loli.net/2024/04/30/NvEnKcDRCSkbiLh.png)
 
 ## Options
 
