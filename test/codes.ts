@@ -52,6 +52,10 @@ if ((a === 1 && fn1("xx", 2) && !this.xx.xx || str === "a" || str1 == "核销码
 if (this.name === "核销码" && fn("xx") || !userId) {
   // ...
 }
+
+if (!this.visible) {
+  // ...
+}
 `;
 
 const vueCode = `<template>
