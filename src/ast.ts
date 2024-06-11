@@ -146,9 +146,11 @@ function logCollectByAST(ast: ts.SourceFile, nodes: ts.Node[], config: Config) {
       names.forEach((txt) =>
         contents.push(new Content(txt, printLine, "condition"))
       );
+    } else {
+      // console.log(node);
+      const text = node.expression.getText(ast);
+      contents.push(new Content(text, printLine, "condition"));
     }
-    // const text = node.expression.getText(ast);
-    // contents.push(new Content(text, printLine, "condition"));
   }
 
   for (const node of nodes) {

@@ -171,4 +171,14 @@ describe("collect print info by nodes", () => {
     //   `this.name === "核销码" && fn("xx") || !userId`
     // );
   });
+
+  it("should return condition name when print IfStatement", () => {
+    config.startLine = 55;
+    config.endLine = 55;
+    nodes = findNodesInRange(ast, config);
+
+    const contents = logCollectByAST(ast, nodes, config);
+
+    expect(contents[0].text).toBe(`!this.visible`);
+  });
 });
